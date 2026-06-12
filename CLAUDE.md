@@ -69,6 +69,10 @@ description: "One sentence for meta description and library grid context."
 - `draft` — appears in library grid as "soon"; no article page generated
 - `live` — linked in grid; article page generated at `/articles/slug/`
 
+**section** (optional, default: `library`):
+- `library` — appears in the home page library grid (buying-decision content)
+- `analysis` — appears in `/analysis/` index (OSS showcases, methodology pieces, reference material)
+
 ## Editorial doctrine
 
 Every article answers a **buying-decision question**, never a production one.
