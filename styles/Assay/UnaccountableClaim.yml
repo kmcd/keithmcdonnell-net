@@ -1,0 +1,13 @@
+extends: existence
+message: "Unaccountable claim '%s' — name the study, the population, and the confidence interval, or cut the number."
+level: error
+ignorecase: true
+tokens:
+  - '\d+\s*x\s+(?:faster|more productive|improvement)'
+  - '\d+\s*%\s+(?:faster|more productive|productivity gain|improvement|reduction in)'
+  - 'boost(?:s|ed|ing)?\s+productivity'
+  - 'transform(?:s|ed|ing)?\s+(?:your\s+)?(?:engineering|team|how)'
+  - 'dramatically\s+(?:faster|better|improve)'
+  - 'significantly\s+(?:faster|better|more\s+productive)'
+  - 'our\s+(?:research|data|study)\s+shows'
+  - 'studies\s+show\s+that\s+AI'

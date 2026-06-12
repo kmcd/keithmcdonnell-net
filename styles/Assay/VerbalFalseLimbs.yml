@@ -1,0 +1,21 @@
+# Orwell: "operators or verbal false limbs" — phrases that replace a simple verb
+# with a noun or adjective tacked onto a weak general-purpose verb.
+# Restoration strategy: find the buried verb and promote it.
+extends: existence
+message: "Verbal false limb '%s' — restore the buried verb (Orwell rule 3)."
+level: error
+ignorecase: true
+tokens:
+  - 'render(?:s|ed|ing)?\s+inoperative'
+  - 'give(?:s)?\s+rise\s+to'
+  - 'have\s+the\s+effect\s+of'
+  - 'serve(?:s|d)?\s+the\s+purpose\s+of'
+  - 'make(?:s)?\s+contact\s+with'
+  - 'exhibit(?:s|ed)?\s+a\s+tendency\s+to'
+  - 'play(?:s|ed)?\s+a\s+(?:leading|key|important)\s+(?:part|role)\s+in'
+  - 'militate(?:s|d)?\s+against'
+  - 'be\s+subjected\s+to'
+  - 'with\s+respect\s+to\b'
+  - 'having\s+regard\s+to'
+  - 'brought\s+to\s+a\s+(?:satisfactory\s+)?conclusion'
+  - 'is\s+deserving\s+of\s+(?:serious\s+)?consideration'

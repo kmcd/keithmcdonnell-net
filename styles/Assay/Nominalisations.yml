@@ -1,0 +1,23 @@
+# Williams: nominalisations "hide the action and force the writer to prop the sentence
+# with weak verbs." Restore the buried verb.
+extends: existence
+message: "Nominalisation '%s' — restore the verb (Williams, Lanham Paramedic Method)."
+level: error
+ignorecase: true
+tokens:
+  - 'the\s+implementation\s+of'
+  - 'the\s+imposition\s+of'
+  - 'the\s+determination\s+of'
+  - 'the\s+attribution\s+of'
+  - 'the\s+deterioration\s+of'
+  - 'the\s+reconciliation\s+of'
+  - 'the\s+resolution\s+of'
+  - 'in\s+respect\s+of'
+  - 'there\s+was\s+a[n]?\s+(?:investigation|evaluation|review|assessment)\s+(?:into|of)'
+  - 'an\s+evaluation\s+of'
+  - 'the\s+integration\s+of'
+  - 'the\s+introduction\s+of'
+  - 'the\s+adoption\s+of'
+  - 'an\s+examination\s+of'
+  - 'the\s+measurement\s+of'
+  - 'the\s+assessment\s+of(?!\s+(?:Assay|the\s+practice|your))'

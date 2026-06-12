@@ -1,0 +1,18 @@
+# Zinsser: "dreary clauses announcing what the writer is going to do next."
+# Orwell: "resounding commonplace anticlimaxes."
+# Start fast — cut the wind-up, lead with the substance.
+extends: existence
+message: "Slow wind-up '%s' — start with the substantive claim (Zinsser, Orwell)."
+level: error
+ignorecase: true
+tokens:
+  - '^It\s+is\s+worth\s+noting\s+that'
+  - '^It\s+should\s+be\s+(?:noted|pointed\s+out)\s+that'
+  - '^It\s+is\s+interesting\s+to\s+(?:note|observe)\s+that'
+  - '^In\s+(?:recent|the\s+(?:following|preceding))\s+(?:years|months|periods|times)'
+  - '^Looking\s+ahead'
+  - '^In\s+summary'
+  - '^In\s+conclusion'
+  - 'a\s+development\s+to\s+be\s+expected\s+in\s+the\s+near\s+future'
+  - 'deserving\s+of\s+serious\s+consideration'
+  - 'cannot\s+be\s+left\s+out\s+of\s+account'

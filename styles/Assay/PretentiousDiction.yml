@@ -1,0 +1,19 @@
+# Orwell: words used "from a notion that Latin or Greek words are grander than Saxon ones."
+# These inflate the register without adding precision. Use the plain English equivalent.
+extends: existence
+message: "Pretentious diction '%s' — use the plain English equivalent (Orwell rule 5)."
+level: warning
+ignorecase: true
+tokens:
+  - '\butilize\b'
+  - '\butilise\b'
+  - '\bexhibit\b'
+  - '\bconstitute\b'
+  - '\bfacilitate\b'
+  - '\bcommence\b'
+  - '\bterminate\b'
+  - '\bascertain\b'
+  - '\bdemonstrate\b(?! that the evidence)'
+  - '\bsubsequently\b'
+  - '\bprior\s+to\b'
+  - '\bin\s+order\s+to\b'
