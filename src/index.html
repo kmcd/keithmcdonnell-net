@@ -61,6 +61,7 @@
     border:1px solid var(--hair);border-radius:3px;padding:1px 5px;margin-right:8px;white-space:nowrap}
   .lib-cat li.soon{color:var(--muted)}
   .lib-cat li.soon .soon-tag{font-size:10px;color:var(--muted);margin-left:6px}
+  .lib-analysis-link{font-size:15px;margin:24px 0 0;color:var(--muted)}
 
   .identity{display:flex;gap:24px;align-items:flex-start;margin-top:80px}
   @media(max-width:560px){.identity{flex-direction:column}}
@@ -85,8 +86,8 @@
 
   <section class="hero">
     <div class="wrap">
-      <h1>Is your AI coding spend producing value — or just activity?</h1>
-      <p class="lede">An independent, fixed-price verdict on whether your engineering team is getting real value from Cursor, Copilot, Claude Code or Devin. Read from your own git, PR and CI history — at team and system level. Never individual rankings. Never your application source.</p>
+      <h1><!-- BUILD:HERO_H1 --></h1>
+      <p class="lede"><!-- BUILD:HERO_LEDE --></p>
       <div class="cta-row">
         <a class="btn" href="#contact">Request an assessment</a>
         <a class="btn-secondary" href="#sample">Read a sample verdict</a>
@@ -95,7 +96,7 @@
         <div>
           <h3>Keith McDonnell</h3>
           <p class="role">Independent engineering advisor · ~18 yrs Rails · AI-native</p>
-          <p>I deliver every assessment myself. The verdict carries my name because the judgment is the product — there's no team to hand you off to and no tool to sell you afterward. That's the whole point of an independent read.</p>
+          <p><!-- BUILD:IDENTITY_BIO --></p>
           <p class="sig">— signed, every report</p>
         </div>
         <div class="portrait">portrait<br>(warm-mono)</div>
@@ -106,15 +107,15 @@
 
   <section id="assessment">
     <div class="wrap">
-      <p class="lead">Speed is easy to see. Direction is not.</p>
-      <p>Your dashboard can tell you commits are up and PRs are flowing. It cannot tell you whether that motion is moving the system forward or quietly accumulating rework, review burden and defects you'll pay for later. The vendor's productivity claims describe their tool's behaviour; they can't describe your system's outcomes. That gap is what an independent read closes.</p>
+      <p class="lead"><!-- BUILD:ASSESSMENT_LEAD --></p>
+      <p><!-- BUILD:ASSESSMENT_BODY --></p>
     </div>
   </section>
 
 
   <section>
     <div class="wrap">
-      <p>I characterise the system and its outcomes from the evidence your own history already holds, then hand you a written verdict — findings stated as likelihoods and ranges, not a single decorative score.</p>
+      <p><!-- BUILD:WHAT_IT_IS --></p>
     </div>
   </section>
 
@@ -147,8 +148,8 @@
   <section id="sample">
     <div class="wrap">
       <div class="callout">
-        <h3>What an independent verdict actually reads like</h3>
-        <p>A complete, redacted specimen report — the verdict block, the reference-band comparison, the named limits. The clearest way to see what £25k buys before you ask.</p>
+        <h3><!-- BUILD:SAMPLE_H3 --></h3>
+        <p><!-- BUILD:SAMPLE_BODY --></p>
         <a href="#">Read the specimen verdict →</a>
       </div>
     </div>
@@ -157,18 +158,19 @@
 
   <section id="library">
     <div class="wrap">
-      <p class="lib-intro">Everything I'd want a serious buyer to read before we talk — answered in writing, up front. Organised by topic; the tag marks where each piece sits in the decision.</p>
+      <p class="lib-intro"><!-- BUILD:LIB_INTRO --></p>
       <div class="lib-grid">
         <!-- BUILD:LIBRARY_GRID -->
       </div>
+      <p class="lib-analysis-link"><a href="/analysis/">OSS showcase reads and methodology notes →</a></p>
     </div>
   </section>
 
 
   <section id="contact">
     <div class="wrap">
-      <p class="lead">If a decision about your AI tooling is coming up, an independent read is worth a fraction of what rides on it.</p>
-      <p>Tell me the team size, when AI tooling was adopted, and the decision in front of you.</p>
+      <p class="lead"><!-- BUILD:CONTACT_LEAD --></p>
+      <p><!-- BUILD:CONTACT_BODY --></p>
       <div class="cta-row">
         <a class="btn" href="mailto:keith@keithmcdonnell.net">Request an assessment</a>
         <a class="btn-secondary" href="#sample">Read a sample verdict first</a>

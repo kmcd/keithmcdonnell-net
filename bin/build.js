@@ -51,8 +51,9 @@ function loadArticles() {
 }
 
 function buildLibraryGrid(articles) {
+  const libraryArticles = articles.filter(a => (a.section || 'library') === 'library');
   return CATEGORIES.flatMap(({ key, label }) => {
-    const items = articles
+    const items = libraryArticles
       .filter(a => a.category === key)
       .sort((a, b) => (b.status === 'live') - (a.status === 'live'));
     if (!items.length) return [];
@@ -66,8 +67,39 @@ function buildLibraryGrid(articles) {
   }).join('\n\n        ');
 }
 
+function buildAnalysisIndex(articles) {
+  const analysisArticles = articles
+    .filter(a => (a.section || 'library') === 'analysis')
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  if (!analysisArticles.length) {
+    return '<p class="analysis-empty">No pieces published yet.</p>';
+  }
+
+  return analysisArticles.map(a => {
+    const tag = `<span class="stage">${STAGE_LABELS[a.stage] || a.stage}</span>`;
+    if (a.status === 'live') {
+      return `<div class="analysis-item">\n  <p class="analysis-meta">${tag} ${a.date || ''}</p>\n  <h3><a href="/articles/${a.slug}/">${a.title}</a></h3>\n  ${a.description ? `<p class="analysis-desc">${a.description}</p>` : ''}\n</div>`;
+    }
+    return `<div class="analysis-item analysis-item--soon">\n  <p class="analysis-meta">${tag}</p>\n  <h3>${a.title}</h3>\n  ${a.description ? `<p class="analysis-desc">${a.description}</p>` : ''}\n</div>`;
+  }).join('\n\n');
+}
+
 function render(template, vars) {
   return Object.entries(vars).reduce((t, [k, v]) => t.replaceAll(`{{${k}}}`, v ?? ''), template);
+}
+
+function loadContent(file) {
+  const fullPath = path.join(SRC_DIR, file);
+  if (!fs.existsSync(fullPath)) return {};
+  const { meta } = parseFrontmatter(fs.readFileSync(fullPath, 'utf8'));
+  return meta;
+}
+
+function injectContent(html, content) {
+  return Object.entries(content).reduce(
+    (t, [k, v]) => t.replace(`<!-- BUILD:${k.toUpperCase()} -->`, v ?? ''), html
+  );
 }
 
 function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
@@ -80,18 +112,38 @@ function build() {
   console.log(`${articles.length} articles, ${live.length} live`);
 
   // Home page
+  const indexContent = loadContent('index.md');
   const indexSrc = fs.readFileSync(path.join(SRC_DIR, 'index.html'), 'utf8');
   const grid = buildLibraryGrid(articles);
-  fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexSrc.replace('<!-- BUILD:LIBRARY_GRID -->', grid));
-  console.log('✓ index.html');
+  const indexHtml = injectContent(indexSrc.replace('<!-- BUILD:LIBRARY_GRID -->', grid), indexContent);
+  fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexHtml);
+  fs.copyFileSync(path.join(SRC_DIR, 'index.md'), path.join(DIST_DIR, 'index.md'));
+  console.log('✓ index.html + index.md');
 
   // Copy other static src files
   for (const f of fs.readdirSync(SRC_DIR)) {
-    if (f === 'index.html' || f === 'article.html') continue;
+    if (f === 'index.html' || f === 'article.html' || f === 'analysis.html') continue;
     if (f.endsWith('.html')) {
       fs.copyFileSync(path.join(SRC_DIR, f), path.join(DIST_DIR, f));
       console.log(`✓ ${f}`);
     }
+  }
+
+  // Analysis index page
+  const analysisSrc = path.join(SRC_DIR, 'analysis.html');
+  if (fs.existsSync(analysisSrc)) {
+    ensureDir(path.join(DIST_DIR, 'analysis'));
+    const analysisPageContent = loadContent('analysis.md');
+    const analysisTemplate = fs.readFileSync(analysisSrc, 'utf8');
+    const analysisHtml = injectContent(
+      analysisTemplate.replace('<!-- BUILD:ANALYSIS_LIST -->', buildAnalysisIndex(articles)),
+      analysisPageContent
+    );
+    fs.writeFileSync(path.join(DIST_DIR, 'analysis', 'index.html'), analysisHtml);
+    if (fs.existsSync(path.join(SRC_DIR, 'analysis.md'))) {
+      fs.copyFileSync(path.join(SRC_DIR, 'analysis.md'), path.join(DIST_DIR, 'analysis', 'index.md'));
+    }
+    console.log('✓ analysis/index.html + analysis/index.md');
   }
 
   // Article pages
@@ -103,6 +155,8 @@ function build() {
       const dir = path.join(DIST_DIR, 'articles', a.slug);
       ensureDir(dir);
       const catLabel = CATEGORIES.find(c => c.key === a.category)?.label ?? '';
+      // Copy .md source alongside the HTML
+      fs.copyFileSync(path.join(ARTICLES_DIR, `${a.slug}.md`), path.join(dir, 'index.md'));
       fs.writeFileSync(path.join(dir, 'index.html'), render(articleTemplate, {
         title:       a.title,
         stage:       STAGE_LABELS[a.stage] || a.stage,
