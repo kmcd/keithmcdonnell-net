@@ -1,0 +1,14 @@
+extends: existence
+message: "Official-style passive '%s' — restore the actor."
+level: error
+ignorecase: true
+tokens:
+  - 'was undertaken'
+  - 'were undertaken'
+  - 'was conducted'
+  - 'is to be considered'
+  - 'will be evaluated'
+  - 'has been evaluated'
+  - 'is being assessed'
+  - 'shall be deemed'
+  - 'will be provided'

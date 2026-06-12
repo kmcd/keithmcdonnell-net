@@ -1,0 +1,13 @@
+{
+  "name": "keithmcdonnell-net",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node bin/build.js",
+    "lint": "vale articles/",
+    "deploy": "node bin/build.js && npx wrangler@3 pages deploy dist --project-name keithmcdonnell-net --commit-dirty=true --branch=main"
+  },
+  "devDependencies": {
+    "marked": "^12.0.0"
+  }
+}

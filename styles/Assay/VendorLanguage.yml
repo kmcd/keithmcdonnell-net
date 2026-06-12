@@ -1,0 +1,17 @@
+extends: existence
+message: "Vendor word '%s' — use plain language. The assessment is not a sales deck."
+level: error
+ignorecase: true
+tokens:
+  - '\bproductivity gains\b'
+  - '\b10x\b'
+  - '\bROI\b'
+  - '\bunlock\b'
+  - '\bempower\b'
+  - '\bseamless\b'
+  - '\bbest-in-class\b'
+  - '\bcutting-edge\b'
+  - '\bparadigm\b'
+  - '\bsynergy\b'
+  - '\bgame.changer\b'
+  - '\btransformative\b'

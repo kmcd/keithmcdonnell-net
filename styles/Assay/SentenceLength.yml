@@ -1,0 +1,6 @@
+extends: occurrence
+message: "Sentence longer than 40 words — read aloud, split."
+level: suggestion
+scope: sentence
+max: 40
+token: '\b\w+\b'

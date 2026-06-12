@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sample report from an independent AI engineering effectiveness assessment — illustrative mockup with synthetic data.">
+<title>Assay — AI Engineering Effectiveness Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FCFBF8;
+    --paper-2:#F1F0EB;
+    --ink:#18181B;
+    --ink-soft:#3B3A3D;
+    --muted:#5F5E5A;
+    --faint:#908F8A;
+    --hair:#DCD9D1;
+    --hair-strong:#C9C6BD;
+    --accent:#7E2B23;        /* assay oxblood — Theme B */
+    --accent-soft:#a8584e;
+    --supported:#3E6B4F;     /* verdigris */
+    --caveat:#9C7327;        /* brass */
+    --against:#7E2B23;       /* oxblood */
+    --supported-bg:#E9EFE9;
+    --caveat-bg:#F2EAD7;
+    --against-bg:#F3E7E4;
+    --card:#F7F6F1;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-font-smoothing:antialiased;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 12% -5%, rgba(126,43,35,.045), transparent 38%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    font-size:16.5px;
+    line-height:1.6;
+  }
+  .sheet{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 30px 120px;
+  }
+
+  /* ---------- shared type ---------- */
+  .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:500;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  h1,h2,h3,h4{font-family:'IBM Plex Sans',system-ui,sans-serif;font-weight:600;line-height:1.14;letter-spacing:-.02em;}
+  a{color:var(--accent);}
+
+  /* ---------- cover ---------- */
+  .cover{
+    padding:90px 0 64px;
+    border-bottom:1px solid var(--hair-strong);
+    position:relative;
+  }
+  .wordmark{
+    display:flex;align-items:center;gap:11px;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink);
+  }
+  .wordmark .dot{
+    width:9px;height:9px;border-radius:0;background:var(--accent);
+    display:inline-block;transform:rotate(45deg);
+  }
+  .wordmark small{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-left:auto;
+  }
+  .cover h1{
+    font-size:clamp(36px,5.6vw,58px);
+    font-weight:600;
+    margin:54px 0 18px;
+    line-height:1.05;
+    max-width:15ch;
+  }
+  .cover .lede{
+    font-size:19px;color:var(--ink-soft);max-width:52ch;margin:0 0 50px;
+  }
+  .meta-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:24px 56px;max-width:620px;
+  }
+  .meta-grid .k{display:block;margin-bottom:4px;}
+  .meta-grid .v{font-size:15px;color:var(--ink);}
+  .meta-grid .v.mono{font-size:14px;}
+  .synthetic-banner{
+    margin-top:54px;
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 16px;
+    border:1px dashed var(--hair-strong);
+    border-radius:2px;
+    background:rgba(126,43,35,.04);
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;
+    color:var(--accent);text-transform:uppercase;
+  }
+
+  /* ---------- section scaffolding ---------- */
+  section{padding-top:60px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px;}
+  .sec-num{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);
+    font-weight:500;
+  }
+  section h2{font-size:30px;margin:0;}
+  .sec-sub{color:var(--muted);font-size:14px;margin:6px 0 26px;max-width:60ch;}
+  p{margin:0 0 16px;}
+  p.tight{margin-bottom:8px;}
+  strong{font-weight:600;color:var(--ink);}
+  hr.rule{border:none;border-top:1px solid var(--hair);margin:46px 0 0;}
+
+  /* ---------- verdict block ---------- */
+  .verdict-wrap{
+    margin-top:34px;
+    border:1px solid var(--hair-strong);
+    border-top:3px solid var(--accent);
+    background:var(--card);
+    border-radius:3px;
+    padding:38px 40px 34px;
+    box-shadow:0 1px 0 rgba(0,0,0,.02),0 18px 40px -34px rgba(24,24,27,.4);
+  }
+  .verdict-headline{
+    font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:27px;font-weight:600;line-height:1.22;
+    margin:0 0 6px;letter-spacing:-.01em;
+  }
+  .verdict-headline .em{color:var(--accent);font-style:italic;}
+  .claims{margin-top:30px;border-top:1px solid var(--hair);}
+  .claim{
+    display:grid;grid-template-columns:130px 1fr 96px;
+    gap:24px;align-items:start;
+    padding:20px 0;border-bottom:1px solid var(--hair);
+  }
+  .claim .pill{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;font-weight:600;
+    padding:5px 9px;border-radius:2px;display:inline-block;white-space:nowrap;
+  }
+  .pill.s{color:var(--supported);background:var(--supported-bg);}
+  .pill.c{color:var(--caveat);background:var(--caveat-bg);}
+  .pill.a{color:var(--against);background:var(--against-bg);}
+  .claim .body{font-size:15px;color:var(--ink-soft);line-height:1.5;}
+  .claim .body b{color:var(--ink);font-weight:600;}
+  .claim .conf{text-align:right;}
+  .claim .conf .num{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:23px;letter-spacing:-.01em;color:var(--ink);display:block;line-height:1;}
+  .claim .conf .lab{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:5px;}
+  .so-what{
+    margin-top:26px;padding-top:24px;border-top:1px solid var(--hair);
+    font-size:16px;color:var(--ink);
+  }
+  .so-what .label{margin-bottom:8px;}
+
+  /* ---------- hypothesis card ---------- */
+  .hyp{
+    border-left:3px solid var(--accent);
+    background:var(--paper-2);
+    padding:24px 28px;margin:20px 0 8px;border-radius:0 3px 3px 0;
+  }
+  .hyp .q{font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:italic;font-size:20px;line-height:1.4;color:var(--ink);}
+  .hyp .by{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:.04em;}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:24px;}
+  .panel{background:var(--card);border:1px solid var(--hair);border-radius:3px;padding:22px 24px;}
+  .panel h4{font-size:17px;margin:0 0 12px;}
+  .panel ul{margin:0;padding-left:18px;}
+  .panel li{margin-bottom:7px;color:var(--ink-soft);font-size:14.5px;}
+
+  /* ---------- did / didn't ---------- */
+  .scope-cols{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:24px;border:1px solid var(--hair);border-radius:3px;overflow:hidden;}
+  .scope-cols > div{padding:24px 26px;}
+  .scope-cols > div:first-child{border-right:1px solid var(--hair);background:var(--card);}
+  .scope-cols > div:last-child{background:var(--paper-2);}
+  .scope-cols h4{font-size:16px;margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+  .scope-cols h4 .mk{font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .scope-cols h4 .mk.yes{color:var(--supported);}
+  .scope-cols h4 .mk.no{color:var(--accent);}
+  .scope-cols li{font-size:14px;color:var(--ink-soft);margin-bottom:9px;list-style:none;padding-left:18px;position:relative;}
+  .scope-cols li:before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--hair-strong);}
+  .scope-cols ul{margin:0;padding:0;}
+
+  /* ---------- DORA strip ---------- */
+  .dora{margin-top:26px;border:1px solid var(--hair);border-radius:3px;overflow:hidden;}
+  .dora-row{display:grid;grid-template-columns:1.4fr 1fr 1.6fr 86px;gap:0;border-bottom:1px solid var(--hair);}
+  .dora-row:last-child{border-bottom:none;}
+  .dora-row.head{background:var(--paper-2);}
+  .dora-row.head > div{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:11px 18px;}
+  .dora-row > div{padding:16px 18px;border-right:1px solid var(--hair);display:flex;flex-direction:column;justify-content:center;}
+  .dora-row > div:last-child{border-right:none;}
+  .dora-metric{font-weight:600;color:var(--ink);font-size:14.5px;}
+  .dora-metric small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px;}
+  .dora-val{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-soft);}
+  .dora-val .arrow{color:var(--supported);font-weight:600;}
+  .dora-val .arrow.bad{color:var(--accent);}
+  .band{display:flex;gap:3px;align-items:center;}
+  .band .seg{height:7px;flex:1;border-radius:1px;background:var(--hair);}
+  .band .seg.on{background:var(--supported);}
+  .band .seg.on.mid{background:var(--caveat);}
+  .band .seg.on.low{background:var(--accent);}
+  .band-lab{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-top:7px;}
+  .band-lab.hi{color:var(--supported);} .band-lab.mid{color:var(--caveat);} .band-lab.lo{color:var(--accent);}
+  .dora-row .conf-cell{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);text-align:right;}
+
+  /* ---------- AI / hotspot table ---------- */
+  .hot{width:100%;border-collapse:collapse;margin-top:24px;font-size:14px;}
+  .hot th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:11px 14px;border-bottom:1px solid var(--hair-strong);font-weight:500;}
+  .hot td{padding:13px 14px;border-bottom:1px solid var(--hair);color:var(--ink-soft);vertical-align:top;}
+  .hot td.mod{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-size:13px;}
+  .hot td.num{font-family:'IBM Plex Mono',monospace;text-align:right;color:var(--ink);}
+  .hot tr.flag td{background:rgba(126,43,35,.045);}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 7px;border-radius:2px;background:var(--paper-2);color:var(--muted);border:1px solid var(--hair);}
+  .tag.risk{background:var(--against-bg);color:var(--against);border-color:transparent;}
+
+  /* ---------- bar viz ---------- */
+  .viz{margin-top:26px;background:var(--card);border:1px solid var(--hair);border-radius:3px;padding:26px 28px;}
+  .viz h4{font-size:16px;margin:0 0 4px;}
+  .viz .cap{color:var(--muted);font-size:13px;margin-bottom:20px;}
+  .barset{display:flex;flex-direction:column;gap:14px;}
+  .bar-line{display:grid;grid-template-columns:130px 1fr 70px;align-items:center;gap:14px;}
+  .bar-line .blab{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);}
+  .bar-track{height:22px;background:var(--paper-2);border-radius:2px;position:relative;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:2px;}
+  .bar-fill.before{background:var(--hair-strong);}
+  .bar-fill.after{background:var(--accent);}
+  .bar-fill.good{background:var(--supported);}
+  .bar-val{font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:var(--ink);}
+
+  /* ---------- findings ---------- */
+  .finding{border-top:1px solid var(--hair);padding:28px 0;}
+  .finding:first-of-type{border-top:1px solid var(--hair-strong);}
+  .finding .fhead{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;}
+  .finding .fnum{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:13px;}
+  .finding h3{font-size:21px;margin:0;flex:1;}
+  .finding .fpill{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:4px 9px;border-radius:2px;}
+  .finding .ev{margin-top:14px;}
+  .finding .ev .label{display:block;margin-bottom:6px;}
+  .finding .ev p{font-size:15px;margin:0;color:var(--ink-soft);}
+  .ev-row{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:12px 0;border-bottom:1px dashed var(--hair);}
+  .ev-row:last-child{border-bottom:none;}
+  .ev-row .et{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:2px;}
+  .ev-row .ed{font-size:14.5px;color:var(--ink-soft);}
+  .ev-row .ed b{color:var(--ink);}
+
+  /* ---------- recommendations ---------- */
+  .rec{display:grid;grid-template-columns:1fr 200px;gap:24px;align-items:center;padding:20px 0;border-bottom:1px solid var(--hair);}
+  .rec:first-of-type{border-top:1px solid var(--hair-strong);}
+  .rec.below{opacity:.62;}
+  .rec .rtitle{font-size:16px;color:var(--ink);font-weight:600;margin-bottom:4px;}
+  .rec .rdesc{font-size:14px;color:var(--muted);}
+  .cb{display:flex;gap:18px;justify-content:flex-end;align-items:center;}
+  .cb .metric{text-align:center;}
+  .cb .metric .lab{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:5px;}
+  .dots{display:flex;gap:3px;}
+  .dots i{width:8px;height:8px;border-radius:50%;background:var(--hair-strong);display:inline-block;}
+  .dots.cost i.on{background:var(--ink-soft);}
+  .dots.benefit i.on{background:var(--supported);}
+  .verdict-do{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:4px 8px;border-radius:2px;white-space:nowrap;}
+  .verdict-do.yes{color:var(--supported);background:var(--supported-bg);}
+  .verdict-do.no{color:var(--against);background:var(--against-bg);}
+  .rule-note{margin-top:18px;font-size:13px;color:var(--muted);font-style:italic;}
+
+  /* ---------- limits / appendix ---------- */
+  .limits li{margin-bottom:12px;color:var(--ink-soft);font-size:15px;}
+  .limits b{color:var(--ink);}
+  .appendix{margin-top:30px;font-size:14px;}
+  .appendix h4{font-size:15px;margin:26px 0 10px;color:var(--ink);}
+  .deftable{width:100%;border-collapse:collapse;}
+  .deftable td{padding:9px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-size:13.5px;color:var(--ink-soft);}
+  .deftable td:first-child{font-family:'IBM Plex Mono',monospace;color:var(--ink);width:200px;font-size:12.5px;padding-right:20px;}
+  .sources{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;margin-top:8px;}
+  .sources .src{font-size:13px;color:var(--ink-soft);padding:8px 0;border-bottom:1px solid var(--hair);}
+  .sources .src b{color:var(--ink);}
+  .artifact-box{background:var(--paper-2);border:1px solid var(--hair);border-radius:3px;padding:20px 24px;margin-top:8px;font-size:14px;}
+  .artifact-box code{font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:var(--card);padding:2px 6px;border-radius:2px;border:1px solid var(--hair);}
+
+  footer{margin-top:80px;padding-top:30px;border-top:1px solid var(--hair-strong);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;}
+
+  @media (max-width:720px){
+    .meta-grid,.twocol,.scope-cols{grid-template-columns:1fr;}
+    .claim{grid-template-columns:1fr;gap:10px;}
+    .claim .conf{text-align:left;display:flex;gap:10px;align-items:baseline;}
+    .dora-row{grid-template-columns:1fr;}
+    .dora-row > div{border-right:none;border-bottom:1px solid var(--hair);}
+    .rec{grid-template-columns:1fr;}
+    .cb{justify-content:flex-start;}
+    .bar-line{grid-template-columns:90px 1fr 56px;}
+    .sources{grid-template-columns:1fr;}
+  }
+  @media print{
+    body{background:#fff;font-size:11pt;}
+    .synthetic-banner{border-color:#999;}
+    section{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ===================== COVER ===================== -->
+  <header class="cover">
+    <div class="wordmark">
+      <span class="dot"></span>ASSAY
+      <small>Independent assessment</small>
+    </div>
+
+    <h1>AI Engineering Effectiveness Assessment</h1>
+    <p class="lede">An independent, system-level read on whether your engineering teams are getting real value from AI coding tools — and what to do about it.</p>
+
+    <div class="meta-grid">
+      <div><span class="label k">Prepared for</span><span class="v">Halyard — VP Engineering</span></div>
+      <div><span class="label k">Prepared by</span><span class="v">K. — Independent · Dancing&nbsp;Text&nbsp;Ltd</span></div>
+      <div><span class="label k">Window assessed</span><span class="v mono">2025-12-01 → 2026-05-31 (2 quarters)</span></div>
+      <div><span class="label k">Scope</span><span class="v mono">14 repos · Platform &amp; Product groups</span></div>
+      <div><span class="label k">Engagement</span><span class="v mono">REF&nbsp;HAL-026 · fixed-price · 2-week</span></div>
+      <div><span class="label k">Classification</span><span class="v mono">Confidential — client &amp; assessor only</span></div>
+    </div>
+
+    <div class="synthetic-banner">
+      ◆ Illustrative mockup — fictional client, synthetic data
+    </div>
+  </header>
+
+  <!-- ===================== 1. VERDICT ===================== -->
+  <section id="verdict">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The verdict</h2></div>
+    <p class="sec-sub">Read this page if you read nothing else. The detail behind every claim follows in §4–§7; every number is traceable to the inspectable export you hold (Appendix).</p>
+
+    <div class="verdict-wrap">
+      <p class="verdict-headline">Two of the three conditions in your hypothesis hold. Throughput has improved, durably. The <span class="em">“without degrading stability”</span> and <span class="em">“without shifting review burden”</span> conditions do not — and they fail for the <span class="em">same</span> structural reason.</p>
+
+      <div class="claims">
+        <div class="claim">
+          <span><span class="pill s">Supported</span></span>
+          <div class="body"><b>Delivery throughput rose materially.</b> Team-median lead time fell 2.1d → 0.7d; the Product group moved from roughly weekly to daily deploys. The gain survives controlling for the concurrent CI-pipeline upgrade, which we isolated.</div>
+          <div class="conf"><span class="num">~85%</span><span class="lab">confidence</span></div>
+        </div>
+        <div class="claim">
+          <span><span class="pill c">Not met</span></span>
+          <div class="body"><b>Stability degraded — locally, not org-wide.</b> Change-failure rate in two modules (<span class="mono">billing-core</span>, <span class="mono">entitlements</span>) rose ~12% → ~28%. Org-wide CFR is roughly flat, which is exactly why a top-line dashboard misses this.</div>
+          <div class="conf"><span class="num">~70%</span><span class="lab">confidence</span></div>
+        </div>
+        <div class="claim">
+          <span><span class="pill a">Contradicted</span></span>
+          <div class="body"><b>Senior review burden increased.</b> On AI-assisted PRs touching those two modules, the share of review attention from your five most senior reviewers rose ~40% → ~66%. The throughput gain is partly financed by senior attention the headline metrics don’t price.</div>
+          <div class="conf"><span class="num">~75%</span><span class="lab">confidence</span></div>
+        </div>
+      </div>
+
+      <div class="so-what">
+        <span class="label">What this means for the decision in scope</span>
+        Your AI rollout is working where the code is healthy and well-owned, and concentrating risk where it isn’t. The answer is not to slow the rollout. <strong>Extend Cursor to the Data and Infrastructure groups — but put a narrow control on AI-assisted change into <span class="mono">billing-core</span> and <span class="mono">entitlements</span> first, and fix the ownership concentration that makes those two modules fragile.</strong> Recommendations and their cost/benefit are in §8.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 2. WHAT YOU ASKED ===================== -->
+  <section id="ask">
+    <div class="sec-head"><span class="sec-num">02</span><h2>What you asked us to assess</h2></div>
+    <p class="sec-sub">A verdict only means something against a stated hypothesis. We do not assess “AI effectiveness” in the abstract — we assess the specific claim you co-authored, against a decision you actually own.</p>
+
+    <div class="hyp">
+      <div class="q">“Rolling Cursor out across our Platform and Product engineering groups over the last two quarters is increasing delivery throughput — without degrading production stability, and without pushing a disproportionate share of review work onto our senior engineers.”</div>
+      <div class="by">— Hypothesis agreed with VP Engineering, kickoff call · 2026-05-19</div>
+    </div>
+
+    <div class="twocol">
+      <div class="panel">
+        <h4>The decision this informs</h4>
+        <ul>
+          <li>Whether to extend the Cursor rollout to the remaining groups (Data, Infrastructure) next quarter.</li>
+          <li>Whether to introduce a review / ownership control on AI-assisted changes to a small set of high-risk modules.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>What would make the hypothesis true or false</h4>
+        <ul>
+          <li><b>True:</b> shorter lead time &amp; higher deploy frequency, <i>with</i> flat-or-better change-failure rate and review load distributed as before.</li>
+          <li><b>False:</b> throughput up but paid for in instability or in concentrated senior-reviewer time.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="rule-note" style="margin-top:18px;">We named these observable consequences with you before extracting a single signal. If a claimed benefit has no observable consequence, it doesn’t bear on a decision — and we’d have said so rather than measure it.</p>
+  </section>
+
+  <!-- ===================== 3. HOW WE MEASURED ===================== -->
+  <section id="method">
+    <div class="sec-head"><span class="sec-num">03</span><h2>How we measured it — and what we deliberately did not do</h2></div>
+    <p class="sec-sub">Everything here is derived from process and behavioural metadata, correlated across four sources. We characterise the system and its outcomes. We do not audit your code.</p>
+
+    <div class="scope-cols">
+      <div>
+        <h4><span class="mk yes">+</span> What we read</h4>
+        <ul>
+          <li>Git history — commit, branch, and merge metadata across 14 repos (no file contents).</li>
+          <li>GitHub PR &amp; review metadata — timing, reviewers, size, co-changed tests.</li>
+          <li>CircleCI — build, deploy, and rollback events.</li>
+          <li>Bugsnag — incident creation, severity, and resolution timestamps.</li>
+          <li>Declared AI-tooling config artifacts (see tiers below).</li>
+        </ul>
+      </div>
+      <div>
+        <h4><span class="mk no">−</span> What we did not do</h4>
+        <ul>
+          <li>We did <b>not</b> read your application source. No code left your environment.</li>
+          <li>We did <b>not</b> name, rank, or score any individual developer — by design, enforced in the output schema.</li>
+          <li>We did <b>not</b> judge code quality by reading it. Findings are behavioural likelihoods, never “confirmed by inspection”.</li>
+          <li>We did <b>not</b> measure everything we could extract — only what changes your decision (see scoping note).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:19px;margin:36px 0 6px;">AI-tooling detection — three tiers, all source-free</h4>
+    <p style="color:var(--ink-soft);font-size:15px;">Detecting <i>which</i> AI tools are in use, how maturely, and which changes carry an AI signal — without reading code.</p>
+    <table class="hot">
+      <thead><tr><th>Tier</th><th>Signal</th><th>What it tells us · reliability</th></tr></thead>
+      <tbody>
+        <tr><td class="mod">1 · Declared</td><td>Config artifacts: <span class="mono">AGENTS.md</span>, <span class="mono">.cursor/rules</span>, <span class="mono">CLAUDE.md</span>, copilot CI workflow</td><td>Near-deterministic for <b>presence, tool, and maturity</b>. Found in 6 repos (Platform/Product); absent in Data/Infra.</td></tr>
+        <tr><td class="mod">2 · Attributed</td><td>Authorship trailers &amp; bot PR accounts</td><td>≥34% of merged PRs carry an AI authorship signal. <b>Under-counts</b> — Cursor-inline and paste-in are invisible here.</td></tr>
+        <tr><td class="mod">3 · Behavioural</td><td>Commit/PR shape, churn, test co-change fingerprint</td><td><b>Durable</b> — works on untagged change. This tier is the differentiator and drives the §6 correlation.</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:19px;margin:36px 0 6px;">Scoping note</h4>
+    <p style="color:var(--ink-soft);font-size:15px;margin-bottom:0;">A 2-week engagement cannot measure everything, and shouldn’t. We ranked candidate measurements by how much they’d move your decision and dropped the low-value ones even where they were trivial to extract — e.g. we did not produce per-developer commit counts (no decision rides on them, and they invite gaming). We spent the budget on the delivery outcomes, the structural signals underneath them, and the AI lens that connects the two.</p>
+  </section>
+
+  <!-- ===================== 4. DELIVERY PICTURE ===================== -->
+  <section id="delivery">
+    <div class="sec-head"><span class="sec-num">04</span><h2>The delivery picture</h2></div>
+    <p class="sec-sub">The four delivery outcomes (DORA), each as a band plus the shift across the adoption window. Bands use the operational definitions agreed with you (Appendix), not generic ones.</p>
+
+    <div class="dora">
+      <div class="dora-row head">
+        <div>Metric</div><div>Window shift</div><div>Performance band</div><div>Conf.</div>
+      </div>
+      <div class="dora-row">
+        <div class="dora-metric">Lead time for changes<small>commit → running in prod</small></div>
+        <div class="dora-val">2.1d <span class="arrow">↘</span> 0.7d</div>
+        <div><div class="band"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></div><div class="band-lab hi">High</div></div>
+        <div class="conf-cell">85%</div>
+      </div>
+      <div class="dora-row">
+        <div class="dora-metric">Deployment frequency<small>Product group</small></div>
+        <div class="dora-val">~weekly <span class="arrow">↗</span> ~daily</div>
+        <div><div class="band"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span></div><div class="band-lab hi">High</div></div>
+        <div class="conf-cell">88%</div>
+      </div>
+      <div class="dora-row">
+        <div class="dora-metric">Change failure rate<small>org-wide / two modules</small></div>
+        <div class="dora-val">~14% <span class="arrow">→</span> ~14% <span style="color:var(--muted)">·</span> <span class="arrow bad">12%↗28%</span></div>
+        <div><div class="band"><span class="seg on mid"></span><span class="seg on mid"></span><span class="seg"></span><span class="seg"></span></div><div class="band-lab mid">Medium — local degradation</div></div>
+        <div class="conf-cell">70%</div>
+      </div>
+      <div class="dora-row">
+        <div class="dora-metric">Time to restore service<small>MTTR, sev-1/2</small></div>
+        <div class="dora-val">3.4h <span class="arrow bad">↗</span> 4.2h</div>
+        <div><div class="band"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span></div><div class="band-lab mid">Medium</div></div>
+        <div class="conf-cell">65%</div>
+      </div>
+    </div>
+    <p style="margin-top:22px;color:var(--ink-soft);font-size:15px;">The tempo metrics (lead time, deploy frequency) improved cleanly and that improvement is real. The stability metrics tell a split story: <strong>nothing alarming at the org level, a clear local degradation in two modules.</strong> A whole-org average is the wrong unit here — it dilutes a sharp, concentrated signal into noise. §5 explains why those two modules, specifically.</p>
+  </section>
+
+  <!-- ===================== 5. STRUCTURE UNDERNEATH ===================== -->
+  <section id="structure">
+    <div class="sec-head"><span class="sec-num">05</span><h2>The structure underneath</h2></div>
+    <p class="sec-sub">Why the delivery metrics look the way they do. These are behavioural signals from version-control history, reported at module and team level only.</p>
+
+    <table class="hot">
+      <thead><tr><th>Module</th><th>Hotspot rank</th><th>Complexity trend</th><th>Knowledge concentration</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr class="flag"><td class="mod">billing-core</td><td>1 (top 1% churn)</td><td>Rising ↗</td><td class="num">0.78</td><td><span class="tag risk">Structural risk</span></td></tr>
+        <tr class="flag"><td class="mod">entitlements</td><td>3</td><td>Rising ↗</td><td class="num">0.71</td><td><span class="tag risk">Structural risk</span></td></tr>
+        <tr><td class="mod">ingest-pipeline</td><td>2</td><td>Stable →</td><td class="num">0.44</td><td><span class="tag">Watch</span></td></tr>
+        <tr><td class="mod">web-api</td><td>4</td><td>Declining ↘</td><td class="num">0.38</td><td><span class="tag">Healthy — refactor paying off</span></td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:24px;color:var(--ink-soft);font-size:15px;">
+      <p><b>Hotspots.</b> Four modules account for ~52% of defect-linked commits in the window. <span class="mono">billing-core</span> and <span class="mono">entitlements</span> are both high-churn <i>and</i> rising in complexity — the combination Tornhill flags as where defect density clusters.</p>
+      <p><b>Surprise coupling.</b> <span class="mono">billing-core</span> and <span class="mono">entitlements</span> co-change in <strong>61%</strong> of commits despite no compile-time dependency between them. A change to one silently requires a change to the other. This is a hidden architectural decay, and it is where the most expensive incident in the window originated.</p>
+      <p style="margin-bottom:0;"><b>Knowledge concentration.</b> <span class="mono">billing-core</span>’s concentration ratio of 0.78 means the top three contributors made 78% of changes. We flag this as a structural risk and recommend <i>process</i> changes — ownership rotation, pairing, a one-page domain doc — never personnel changes. We do not tell you who the three people are; that information does more harm than good and is out of scope by design.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 6. THE AI LENS ===================== -->
+  <section id="lens">
+    <div class="sec-head"><span class="sec-num">06</span><h2>The AI lens</h2></div>
+    <p class="sec-sub">Where AI-assisted change lands relative to the structure above. This is the connective tissue a code-quality dashboard doesn’t assemble, because it doesn’t own the incident, review-latency, and AI-fingerprint layers together.</p>
+
+    <div class="viz">
+      <h4>AI-assisted change behaves differently inside the two fragile modules</h4>
+      <p class="cap">AI-fingerprinted PRs vs non-AI PRs, <span class="mono">billing-core</span> + <span class="mono">entitlements</span>, full window.</p>
+      <div class="barset">
+        <div class="bar-line">
+          <span class="blab">Lands on hotspot</span>
+          <div class="bar-track"><div class="bar-fill after" style="width:82%"></div></div>
+          <span class="bar-val">2.3× more likely</span>
+        </div>
+        <div class="bar-line">
+          <span class="blab">PR size (net lines)</span>
+          <div class="bar-track"><div class="bar-fill after" style="width:64%"></div></div>
+          <span class="bar-val">1.8× larger</span>
+        </div>
+        <div class="bar-line">
+          <span class="blab">Adds/edits tests</span>
+          <div class="bar-track"><div class="bar-fill before" style="width:38%"></div></div>
+          <span class="bar-val">38%</span>
+        </div>
+        <div class="bar-line">
+          <span class="blab">— non-AI baseline</span>
+          <div class="bar-track"><div class="bar-fill good" style="width:64%"></div></div>
+          <span class="bar-val">64%</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;border-left:3px solid var(--accent);padding:4px 0 4px 24px;">
+      <span class="label" style="color:var(--accent);">The correlation that ties it together</span>
+      <p style="font-size:16px;color:var(--ink);margin:10px 0 0;">The 14 Apr sev-1 (4h 12m to restore — your costliest incident in the window) traces to a single <span class="mono">billing-core</span> change that lit <strong>every</strong> risk signal at once: AI-fingerprinted, 1.9× median size, no co-changed tests, landed on the #1 hotspot, sat in a surprise-coupling with <span class="mono">entitlements</span>, and was reviewed in <strong>23 minutes by a non-domain-owner</strong>. None of these signals alone would convict. Together they describe a repeatable failure mode, not a one-off.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 7. FINDINGS ===================== -->
+  <section id="findings">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Findings</h2></div>
+    <p class="sec-sub">Each finding: the evidence, our confidence, and what it means against your hypothesis. Definiteness about evidence; honesty about meaning.</p>
+
+    <div class="finding">
+      <div class="fhead"><span class="fnum">F1</span><h3>The throughput half of your hypothesis is well supported and durable.</h3><span class="fpill pill s">Supports</span></div>
+      <div class="ev-row"><div class="et">Evidence</div><div class="ed">Lead time <b>2.1d → 0.7d</b>; Product deploys <b>weekly → daily</b>. Consistent across both adopting groups.</div></div>
+      <div class="ev-row"><div class="et">Robustness</div><div class="ed">Survives isolating the concurrent CI upgrade — the gain is not an artifact of faster pipelines alone.</div></div>
+      <div class="ev-row"><div class="et">Meaning</div><div class="ed">This is the part of the AI bet that is paying off. It is real, and it is the reason to <b>continue and extend</b>, not pause.</div></div>
+    </div>
+
+    <div class="finding">
+      <div class="fhead"><span class="fnum">F2</span><h3>Stability degraded in exactly the two modules least able to absorb it.</h3><span class="fpill pill c">Caveat</span></div>
+      <div class="ev-row"><div class="et">Evidence</div><div class="ed">CFR in <span class="mono">billing-core</span> + <span class="mono">entitlements</span> rose <b>~12% → ~28%</b>; org-wide CFR flat.</div></div>
+      <div class="ev-row"><div class="et">Attribution</div><div class="ed">We assess it <b>likely (~70%)</b> the rise is driven by AI-assisted change concentration on these hotspots, not unrelated release activity. The §6 fingerprint and the 14 Apr incident are the basis.</div></div>
+      <div class="ev-row"><div class="et">Meaning</div><div class="ed">The “without degrading stability” condition fails — but <b>locally and fixably</b>. This is a targeting problem, not a verdict on the tool.</div></div>
+    </div>
+
+    <div class="finding">
+      <div class="fhead"><span class="fnum">F3</span><h3>The throughput gain is partly financed by senior-reviewer attention.</h3><span class="fpill pill a">Contradicts</span></div>
+      <div class="ev-row"><div class="et">Evidence</div><div class="ed">On AI-assisted PRs in the two modules, the five most senior reviewers’ share of review comments rose <b>~40% → ~66%</b>.</div></div>
+      <div class="ev-row"><div class="et">Interpretation</div><div class="ed">Seniors are absorbing the added risk of large, under-tested AI changes in fragile code. This is an <b>off-balance-sheet cost</b> the delivery dashboard cannot see.</div></div>
+      <div class="ev-row"><div class="et">Meaning</div><div class="ed">The “without shifting review burden” condition is contradicted. Left unaddressed, this is where the rollout’s velocity gain quietly leaks back out.</div></div>
+    </div>
+
+    <div class="finding">
+      <div class="fhead"><span class="fnum">F4</span><h3>Where code is healthy and well-owned, AI adoption shows no such cost.</h3><span class="fpill pill s">Supports</span></div>
+      <div class="ev-row"><div class="et">Evidence</div><div class="ed"><span class="mono">web-api</span> (declining complexity, low concentration) absorbed AI-assisted change with no CFR rise and no reviewer-load shift.</div></div>
+      <div class="ev-row"><div class="et">Meaning</div><div class="ed">The problem is not AI tooling per se. It is AI tooling pointed at fragile, narrowly-owned code. This is the strongest evidence that the fix is structural, not a rollback.</div></div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. RECOMMENDATIONS ===================== -->
+  <section id="recs">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Recommendations</h2></div>
+    <p class="sec-sub">Scored on cost and benefit (1–5). The rule: where cost exceeds benefit, we think it isn’t worth doing — and we say so. All recommendations are process or architecture changes; none are personnel changes.</p>
+
+    <div class="rec">
+      <div><div class="rtitle">1 · Gate AI-assisted change into <span class="mono">billing-core</span> &amp; <span class="mono">entitlements</span></div><div class="rdesc">Require domain-owner review + co-changed tests on AI-fingerprinted PRs to these two modules only.</div></div>
+      <div class="cb">
+        <div class="metric"><div class="lab">Cost</div><div class="dots cost"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+        <div class="metric"><div class="lab">Benefit</div><div class="dots benefit"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <span class="verdict-do yes">Do first</span>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div><div class="rtitle">2 · Decouple the <span class="mono">billing-core</span> ↔ <span class="mono">entitlements</span> surprise coupling</div><div class="rdesc">The 61% co-change is your highest-ROI refactor — it removes the conditions that produced the 14 Apr sev-1.</div></div>
+      <div class="cb">
+        <div class="metric"><div class="lab">Cost</div><div class="dots cost"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="metric"><div class="lab">Benefit</div><div class="dots benefit"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <span class="verdict-do yes">Do</span>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div><div class="rtitle">3 · Break the knowledge silo on <span class="mono">billing-core</span></div><div class="rdesc">Ownership rotation, deliberate pairing on hotspot work, a one-page domain doc. Reduces the 0.78 concentration ratio.</div></div>
+      <div class="cb">
+        <div class="metric"><div class="lab">Cost</div><div class="dots cost"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+        <div class="metric"><div class="lab">Benefit</div><div class="dots benefit"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <span class="verdict-do yes">Do</span>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div><div class="rtitle">4 · Extend Cursor to Data &amp; Infrastructure</div><div class="rdesc">The throughput case is proven. Roll out — but sequence it <i>after</i> #1 is in place so you don’t replicate the failure mode.</div></div>
+      <div class="cb">
+        <div class="metric"><div class="lab">Cost</div><div class="dots cost"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="metric"><div class="lab">Benefit</div><div class="dots benefit"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <span class="verdict-do yes">Do, sequenced</span>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div><div class="rtitle">5 · Add an “AI-assisted” label + test checkbox to the PR template</div><div class="rdesc">Cheap telemetry and a nudge. Improves Tier-2 detection coverage and surfaces missing tests at review time.</div></div>
+      <div class="cb">
+        <div class="metric"><div class="lab">Cost</div><div class="dots cost"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="metric"><div class="lab">Benefit</div><div class="dots benefit"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <span class="verdict-do yes">Do</span>
+      </div>
+    </div>
+
+    <div class="rec below">
+      <div><div class="rtitle">6 · Track AI-tool usage metrics per developer</div><div class="rdesc">We were asked about this. Don’t. It produces surveillance backlash and gaming, the data is unreliable (Tier-2/3 leak), and no decision in scope needs it.</div></div>
+      <div class="cb">
+        <div class="metric"><div class="lab">Cost</div><div class="dots cost"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <div class="metric"><div class="lab">Benefit</div><div class="dots benefit"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+        <span class="verdict-do no">Below the line</span>
+      </div>
+    </div>
+
+    <p class="rule-note">Cost exceeds benefit on #6, so it sits below the line. Recommendation #6 is also a hard line for this practice independent of the score: we do not produce individual-developer measurement, ever.</p>
+  </section>
+
+  <!-- ===================== 9. LIMITS ===================== -->
+  <section id="limits">
+    <div class="sec-head"><span class="sec-num">09</span><h2>What we can’t see, and what we’d measure next</h2></div>
+    <p class="sec-sub">An honest account of the boundaries of a system-level read. None of these undermines the verdict; they bound it.</p>
+    <ul class="limits">
+      <li><b>Behaviour, not intent.</b> We can show review latency dropped on AI PRs; we can’t tell you whether reviewers trusted the tool or were under deadline pressure. A 30-minute interview with the two module owners would resolve this — and is the cheapest next measurement.</li>
+      <li><b>Mechanical truth without context.</b> System data is precise about <i>what</i> happened and silent on <i>why</i>. This is the exact inverse of a survey’s blind spot; we’d pair the two if you wanted higher confidence on the cultural reading.</li>
+      <li><b>AI detection under-counts.</b> Tiers 2–3 are leaky — Cursor-inline and paste-in changes carry no marker. The true AI-assisted share is higher than the 34% we can attribute, which if anything <i>strengthens</i> F2 and F3.</li>
+      <li><b>A two-quarter window.</b> Seasonal release patterns are only partly controlled. A third quarter of data would tighten the CFR attribution in F2 from ~70% toward ~85%.</li>
+      <li><b>Likelihoods, not confirmations.</b> Every claim here is a probabilistic read of behavioural signals, never a fact confirmed by reading your source. That is the deliberate shape of this product, not a gap in it.</li>
+    </ul>
+  </section>
+
+  <!-- ===================== APPENDIX ===================== -->
+  <section id="appendix">
+    <div class="sec-head"><span class="sec-num">A</span><h2>Appendix</h2></div>
+
+    <div class="appendix">
+      <h4>A.1 — Operational definitions agreed at kickoff</h4>
+      <table class="deftable">
+        <tr><td>deploy</td><td>A merge to <span class="mono">main</span> that triggers the production CircleCI workflow. (Your CI; not a generic definition.)</td></tr>
+        <tr><td>incident</td><td>Bugsnag event tagged P1/P2, or a manually-declared sev-1/sev-2. MTTR runs creation → resolution timestamp.</td></tr>
+        <tr><td>change failure</td><td>A deploy followed within 24h by a rollback, revert, or hotfix referencing the same module.</td></tr>
+        <tr><td>AI-assisted PR</td><td>A PR matching any of the three detection tiers in §3. Tier-1/2 are explicit; Tier-3 is a behavioural fingerprint.</td></tr>
+        <tr><td>knowledge concentration</td><td>(commits by top 3 contributors) ÷ (total commits) per module. ≥0.70 flagged as structural risk.</td></tr>
+      </table>
+
+      <h4>A.2 — The export you hold</h4>
+      <div class="artifact-box">
+        Every number in this report is traceable to a query against the inspectable artifact you generated in your own environment: <code>halyard-assay-export.sqlite</code> (+ JSON mirror). No source code is contained in it, and nothing left your network. <strong>You can audit us</strong> — the artifact and the queries behind each figure are yours to keep.
+      </div>
+
+      <h4>A.3 — Methodological basis</h4>
+      <p style="font-size:13.5px;color:var(--muted);margin:4px 0 0;">Cited as the empirical and conceptual foundation. We measure systems and teams; we do not rank individuals.</p>
+      <div class="sources">
+        <div class="src"><b>Forsgren, Humble &amp; Kim — <i>Accelerate</i>.</b> The four delivery outcomes (§4); the global-outcome-not-output principle behind the no-individual-rankings rule.</div>
+        <div class="src"><b>Tornhill — <i>Your Code as a Crime Scene</i> / <i>Software Design X-Rays</i>.</b> Hotspots, temporal coupling, knowledge concentration (§5) — aggregated to module level.</div>
+        <div class="src"><b>Hubbard — <i>How to Measure Anything</i>.</b> Measurement as uncertainty reduction: confidence ranges not point scores; decision-relevant scoping (§3).</div>
+        <div class="src"><b>Schwartz — <i>The Art of Business Value</i>.</b> Value as a stated organisational hypothesis: the verdict is against your claim (§2), not a universal score.</div>
+      </div>
+    </div>
+
+    <footer>
+      <span>ASSAY · REF HAL-026 · CONFIDENTIAL</span>
+      <span>Independent · Dancing Text Ltd · p. 1/1</span>
+    </footer>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{description}}">
+<title>{{title}} — Keith McDonnell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF8F2; --panel:#EFEBE2; --hair:#DBD6CB; --ink:#1A1813; --body:#3f3d36; --muted:#6B6458;
+    --link:#0B57D0; --link-hover:#0842A0; --link-visited:#6B3FA0;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);line-height:1.65;font-size:18px}
+  h1,h2,h3,h4{color:var(--ink);line-height:1.2;letter-spacing:-.01em;font-weight:600}
+  strong{color:var(--ink);font-weight:600}
+  .wrap{max-width:780px;margin:0 auto;padding:0 28px}
+  a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+  a:hover{color:var(--link-hover)}
+  a:visited{color:var(--link-visited)}
+  a:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:2px}
+
+  .article-back{padding:20px 0;border-bottom:1px solid var(--hair)}
+  .article-back a{font-size:14px;text-decoration:none;color:var(--muted)}
+  .article-back a:hover{color:var(--ink);text-decoration:underline}
+
+  .article-header{padding:46px 0 32px}
+  .article-meta{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+  .article-meta .stage{border:1px solid var(--hair);border-radius:3px;padding:2px 6px;margin-right:8px}
+  .article-header h1{font-size:clamp(26px,4vw,38px);margin:0}
+
+  .article-body{padding-bottom:60px}
+  .article-body p{max-width:68ch;margin:0 0 1.1em}
+  .article-body p+p{margin-top:0}
+  .article-body h2{font-size:22px;margin:2.2em 0 0.6em}
+  .article-body h3{font-size:19px;margin:1.8em 0 0.4em}
+  .article-body ul,.article-body ol{max-width:68ch;padding-left:1.4em;margin:0.5em 0 1.2em}
+  .article-body li{margin-bottom:0.3em}
+  .article-body blockquote{border-left:3px solid var(--hair);padding-left:20px;margin:1.5em 0;color:var(--muted);font-style:italic}
+  .article-body hr{border:none;border-top:1px solid var(--hair);margin:2.5em 0}
+
+  footer{border-top:1px solid var(--hair);padding:32px 0 56px;font-size:14px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="article-back">
+  <div class="wrap"><a href="/">← Keith McDonnell</a></div>
+</div>
+
+<main>
+  <div class="wrap">
+    <header class="article-header">
+      <p class="article-meta"><span class="stage">{{stage}}</span>{{category}}</p>
+      <h1>{{title}}</h1>
+    </header>
+    <article class="article-body">
+      {{content}}
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Keith McDonnell · Independent verdict on AI coding</div>
+    <div><a href="/">keithmcdonnell.net</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

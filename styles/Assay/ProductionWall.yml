@@ -1,0 +1,16 @@
+# The production wall: articles must make the reader trust the verdict,
+# not self-serve it. Flag language that describes internal methodology
+# parameters — reference bands, scoring thresholds, archetype logic.
+extends: existence
+message: "Production wall: '%s' describes methodology internals. Describe the shape of the analysis, not the parameters."
+level: error
+ignorecase: true
+tokens:
+  - 'reference band'
+  - 'archetype placement'
+  - 'scoring threshold'
+  - 'quartile cut'
+  - 'cross.tab logic'
+  - 'before.after delta algorithm'
+  - 'composite score'
+  - 'weighted formula'

@@ -1,0 +1,14 @@
+extends: existence
+message: "Hedge '%s' — state the finding directly or as a confidence interval."
+level: error
+ignorecase: true
+tokens:
+  - 'may suggest'
+  - 'could indicate'
+  - 'appears to'
+  - 'seems to'
+  - 'would seem'
+  - 'tends to'
+  - 'could be characterised as'
+  - 'might imply'
+  - 'possibly suggests'

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keith McDonnell — Independent verdict on AI coding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF8F2; --panel:#EFEBE2; --hair:#DBD6CB; --ink:#1A1813; --body:#3f3d36; --muted:#6B6458;
+    --link:#0B57D0; --link-hover:#0842A0; --link-visited:#6B3FA0;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);line-height:1.65;font-size:18px}
+  h1,h2,h3{color:var(--ink);line-height:1.18;letter-spacing:-.01em;font-weight:600}
+  strong{color:var(--ink);font-weight:600}
+  .wrap{max-width:780px;margin:0 auto;padding:0 28px}
+  a{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+  a:hover{color:var(--link-hover)}
+  a:visited{color:var(--link-visited)}
+  a:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:2px}
+
+  section{padding:46px 0}
+  .hero h1{font-size:clamp(30px,5vw,44px);margin:0 0 18px}
+  .hero p.lede{font-size:19px;color:var(--ink);margin:0 0 26px;max-width:64ch}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{font-size:15px;font-weight:600;background:var(--link);color:#fff;border:1px solid var(--link);
+    padding:11px 18px;border-radius:7px;text-decoration:none}
+  .btn:visited{color:#fff}
+  .btn:hover{background:var(--link-hover);border-color:var(--link-hover);color:#fff}
+  .btn-secondary{background:transparent;color:var(--link);border:1px solid var(--hair);padding:11px 18px;border-radius:7px;
+    text-decoration:none;font-weight:600;font-size:15px}
+  .btn-secondary:hover{border-color:var(--link);text-decoration:none}
+
+  .lead{font-size:20px;font-weight:600;margin:0 0 14px;max-width:60ch}
+  p{margin:0 0 16px;max-width:68ch}
+
+  dl.items{margin:0;padding:0}
+  dl.items div{padding:14px 0;border-top:1px solid var(--hair)}
+  dl.items div:last-child{border-bottom:1px solid var(--hair)}
+  dl.items dt{font-weight:600;color:var(--ink);margin-bottom:3px}
+  dl.items dd{margin:0;color:var(--body)}
+  .items-meta{font-size:14px;color:var(--muted);margin-top:14px}
+
+  .callout{background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:22px 24px}
+  .callout h3{margin:0 0 6px;font-size:18px}
+  .callout p{margin:0 0 14px;color:var(--muted)}
+
+  .lib-intro{color:var(--muted);max-width:62ch;margin:0 0 26px}
+  .lib-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 36px}
+  @media(max-width:620px){.lib-grid{grid-template-columns:1fr}}
+  .lib-cat h3{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+    margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--hair)}
+  .lib-cat ul{list-style:none;margin:0;padding:0}
+  .lib-cat li{padding:7px 0;font-size:15px;line-height:1.4}
+  .lib-cat li .stage{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--hair);border-radius:3px;padding:1px 5px;margin-right:8px;white-space:nowrap}
+  .lib-cat li.soon{color:var(--muted)}
+  .lib-cat li.soon .soon-tag{font-size:10px;color:var(--muted);margin-left:6px}
+
+  .identity{display:flex;gap:24px;align-items:flex-start;margin-top:80px}
+  @media(max-width:560px){.identity{flex-direction:column}}
+  .portrait{flex:none;width:132px;height:160px;background:var(--panel);border:1px solid var(--hair);border-radius:8px;
+    display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);text-align:center;line-height:1.4}
+  .identity h3{margin:0 0 4px;font-size:20px}
+  .identity .role{font-size:12px;color:var(--muted);margin:0 0 14px;letter-spacing:.04em}
+  .sig{font-size:13px;color:var(--ink);margin-top:14px}
+
+  footer{padding:32px 0 56px;font-size:14px;color:var(--muted)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--hair);padding-top:32px}
+  footer .nav{display:flex;gap:18px;font-size:11.5px}
+  footer .nav a{text-decoration:none;color:var(--muted)}
+  footer .nav a:hover{text-decoration:underline}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Is your AI coding spend producing value — or just activity?</h1>
+      <p class="lede">An independent, fixed-price verdict on whether your engineering team is getting real value from Cursor, Copilot, Claude Code or Devin. Read from your own git, PR and CI history — at team and system level. Never individual rankings. Never your application source.</p>
+      <div class="cta-row">
+        <a class="btn" href="#contact">Request an assessment</a>
+        <a class="btn-secondary" href="#sample">Read a sample verdict</a>
+      </div>
+      <div class="identity">
+        <div>
+          <h3>Keith McDonnell</h3>
+          <p class="role">Independent engineering advisor · ~18 yrs Rails · AI-native</p>
+          <p>I deliver every assessment myself. The verdict carries my name because the judgment is the product — there's no team to hand you off to and no tool to sell you afterward. That's the whole point of an independent read.</p>
+          <p class="sig">— signed, every report</p>
+        </div>
+        <div class="portrait">portrait<br>(warm-mono)</div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="assessment">
+    <div class="wrap">
+      <p class="lead">Speed is easy to see. Direction is not.</p>
+      <p>Your dashboard can tell you commits are up and PRs are flowing. It cannot tell you whether that motion is moving the system forward or quietly accumulating rework, review burden and defects you'll pay for later. The vendor's productivity claims describe their tool's behaviour; they can't describe your system's outcomes. That gap is what an independent read closes.</p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="wrap">
+      <p>I characterise the system and its outcomes from the evidence your own history already holds, then hand you a written verdict — findings stated as likelihoods and ranges, not a single decorative score.</p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="wrap">
+      <dl class="items">
+        <div><dt>No individual-developer rankings.</dt><dd>Strictly team and system level — an ethics line and a methodology line both.</dd></div>
+        <div><dt>No reading your application source to judge quality.</dt><dd>Declared config and manifests only. Your logic never leaves your environment.</dd></div>
+        <div><dt>No dashboard to babysit.</dt><dd>One engagement, one verdict — not another tool to maintain.</dd></div>
+        <div><dt>No implementation or remediation.</dt><dd>The independence that makes the verdict worth having depends on having nothing to sell you afterward.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="wrap">
+      <dl class="items">
+        <div><dt>Scope &amp; qualify</dt><dd>Confirm fit, adoption history and the decision the verdict will inform. No free read.</dd></div>
+        <div><dt>Extract</dt><dd>You run the read-only extractor in your own environment; an inspectable artifact comes back to me. Source stays with you.</dd></div>
+        <div><dt>Characterise &amp; correlate</dt><dd>Behavioural signals against cross-organisation reference bands, bracketing the AI-adoption inflection.</dd></div>
+        <div><dt>Verdict</dt><dd>A signed, hand-written report — likelihoods and ranges, named confounders, a short set of things you can act on.</dd></div>
+      </dl>
+      <p class="items-meta">Fixed price · ~2-week calendar · delivered by me, by name.</p>
+    </div>
+  </section>
+
+
+  <section id="sample">
+    <div class="wrap">
+      <div class="callout">
+        <h3>What an independent verdict actually reads like</h3>
+        <p>A complete, redacted specimen report — the verdict block, the reference-band comparison, the named limits. The clearest way to see what £25k buys before you ask.</p>
+        <a href="#">Read the specimen verdict →</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="library">
+    <div class="wrap">
+      <p class="lib-intro">Everything I'd want a serious buyer to read before we talk — answered in writing, up front. Organised by topic; the tag marks where each piece sits in the decision.</p>
+      <div class="lib-grid">
+        <!-- BUILD:LIBRARY_GRID -->
+      </div>
+    </div>
+  </section>
+
+
+  <section id="contact">
+    <div class="wrap">
+      <p class="lead">If a decision about your AI tooling is coming up, an independent read is worth a fraction of what rides on it.</p>
+      <p>Tell me the team size, when AI tooling was adopted, and the decision in front of you.</p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:keith@keithmcdonnell.net">Request an assessment</a>
+        <a class="btn-secondary" href="#sample">Read a sample verdict first</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Keith McDonnell · Independent verdict on AI coding · keith@keithmcdonnell.net</div>
+    <nav class="nav" aria-label="Footer">
+      <a href="#assessment">Assessment</a>
+      <a href="#library">Library</a>
+      <a href="#sample">Sample</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

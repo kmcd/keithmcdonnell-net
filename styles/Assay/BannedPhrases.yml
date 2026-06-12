@@ -1,0 +1,19 @@
+extends: existence
+message: "'%s' is banned — cut or rewrite."
+level: error
+ignorecase: true
+tokens:
+  - 'it is worth noting'
+  - 'it should be noted'
+  - 'it is interesting to note'
+  - 'in terms of'
+  - 'going forward'
+  - 'at the end of the day'
+  - 'the fact that'
+  - 'in close proximity'
+  - 'due to the fact that'
+  - 'in summary'
+  - 'in conclusion'
+  - 'leverage'
+  - 'as we can see'
+  - 'needless to say'

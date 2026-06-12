@@ -1,0 +1,12 @@
+extends: existence
+message: "Meta-sentence '%s' — assert the claim, don't announce it."
+level: error
+ignorecase: true
+tokens:
+  - 'this article (?:explains|covers|presents|looks at)'
+  - 'this page (?:explains|covers|presents)'
+  - 'in this piece'
+  - 'the reason for this is'
+  - 'this is because'
+  - 'what follows is'
+  - 'the purpose of this'
