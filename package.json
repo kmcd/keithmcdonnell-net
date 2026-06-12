@@ -8,6 +8,7 @@
     "deploy": "node bin/build.js && npx wrangler@3 pages deploy dist --project-name keithmcdonnell-net --commit-dirty=true --branch=main"
   },
   "devDependencies": {
-    "marked": "^12.0.0"
+    "marked": "^12.0.0",
+    "marked-footnote": "^1.0.0"
   }
 }

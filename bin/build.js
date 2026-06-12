@@ -10,7 +10,12 @@ const SRC_DIR = path.join(ROOT, 'src');
 const DIST_DIR = path.join(ROOT, 'dist');
 
 function getMarked() {
-  try { return require('marked').marked; } catch {
+  try {
+    const { marked } = require('marked');
+    const markedFootnote = require('marked-footnote');
+    marked.use(markedFootnote());
+    return marked;
+  } catch {
     console.error('Error: run `npm install` first.'); process.exit(1);
   }
 }
