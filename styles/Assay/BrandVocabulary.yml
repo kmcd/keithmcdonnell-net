@@ -1,12 +1,13 @@
 # Enforce the service name and tool vocabulary settled in the brand doctrine.
 # "verdict" is the product word — not report, audit, or review.
-# Tools are named: Cursor, Copilot, Claude Code, Devin (capitalisation enforced by writer).
+# Only flag when "report" is used as the name of our specific deliverable,
+# not as a generic word (vendor reports, metrics reports, etc.).
 extends: existence
-message: "Brand vocabulary: '%s' — use 'verdict' (not report/audit/review) for the deliverable. See CLAUDE.md."
+message: "Brand vocabulary: '%s' — use 'verdict' for the Assay deliverable. See CLAUDE.md."
 level: warning
 ignorecase: true
 tokens:
-  - '\b(?:the\s+)?(?:assessment\s+)?report\b(?=\s+(?:is|will|should|can|that|which|to))'
-  - '\baudit\s+(?:report|findings|results)\b'
-  - '\bcode\s+review\b(?=\s+(?:is|findings|results|shows))'
-  - '\bindependent\s+(?:report|audit|review)\b(?!\s+of\s+(?:code|the\s+code|source))'
+  - '\bthe\s+(?:assessment|Assay|independent)\s+report\b'
+  - '\bdeliver(?:s|ed|ing)?\s+a\s+report\b'
+  - '\bwritten\s+report\b'
+  - '\breceive\s+(?:a|the)\s+report\b'
